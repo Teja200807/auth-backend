@@ -3,7 +3,7 @@ const bcrypt = require("bcryptjs");
 const cors = require("cors");
 require("dotenv").config();
 const db = require("./db");
-
+//deploy trigger
 const app = express();
 app.use(express.json());
 app.use(cors());
@@ -41,3 +41,4 @@ app.post("/login", (req, res) => {
 });
 
 app.listen(3000, () => console.log("Server running on port 3000"));
+
