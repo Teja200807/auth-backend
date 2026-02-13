@@ -39,6 +39,11 @@ app.post("/login", (req, res) => {
     }
   );
 });
+app.get("/"(req,res)=>{
+  res.send("Background is running succesfully");
+});
+app.listen(PORT, () =>{
+  console.log("Server running on port "+PORT);
+});
 
-app.listen(3000, () => console.log("Server running on port 3000"));
 
