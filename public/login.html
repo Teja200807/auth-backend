@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login | Incredible India</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body{
+  margin:0;
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background: linear-gradient(135deg,#667eea,#764ba2);
+}
+
+/* Container */
+.login-container{
+  width:100%;
+  max-width:380px;
+  background:#fff;
+  border-radius:20px;
+  padding:30px 25px;
+  box-shadow:0 20px 40px rgba(0,0,0,0.2);
+  animation:slideUp 0.6s ease;
+}
+
+/* Title */
+.login-container h2{
+  text-align:center;
+  color:#4a148c;
+  margin-bottom:10px;
+}
+
+.login-container p{
+  text-align:center;
+  color:#666;
+  font-size:14px;
+  margin-bottom:25px;
+}
+
+/* Input fields */
+.input-group{
+  margin-bottom:18px;
+}
+
+.input-group label{
+  font-size:14px;
+  color:#555;
+}
+
+.input-group input{
+  width:100%;
+  padding:12px 14px;
+  margin-top:6px;
+  border-radius:10px;
+  border:1px solid #ccc;
+  outline:none;
+  font-size:15px;
+}
+
+.input-group input:focus{
+  border-color:#764ba2;
+}
+
+/* Button */
+.login-btn{
+  width:100%;
+  padding:12px;
+  background:linear-gradient(45deg,#ff6b35,#ff8c42);
+  border:none;
+  color:white;
+  font-size:16px;
+  border-radius:30px;
+  cursor:pointer;
+  margin-top:10px;
+}
+
+.login-btn:hover{
+  opacity:0.9;
+}
+
+/* Links */
+.links{
+  text-align:center;
+  margin-top:20px;
+  font-size:14px;
+}
+
+.links a{
+  color:#764ba2;
+  text-decoration:none;
+  font-weight:600;
+}
+
+/* Mobile optimization */
+@media(max-width:480px){
+  .login-container{
+    margin:15px;
+    padding:25px 20px;
+  }
+}
+
+/* Animation */
+@keyframes slideUp{
+  from{
+    opacity:0;
+    transform:translateY(40px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="login-container">
+  <h2>Welcome Back</h2>
+  <p>Login to explore Incredible India 🇮🇳</p>
+
+  <div class="input-group">
+    <label>Username</label>
+    <input type="text" id="username" placeholder="Enter username">
+  </div>
+
+  <div class="input-group">
+    <label>Password</label>
+    <input type="password" id="password" placeholder="Enter password">
+  </div>
+
+  <button class="login-btn" onclick="login()">Login</button>
+
+  <div class="links">
+    New user? <a href="register.html">Create account</a>
+  </div>
+</div>
+
+
+<script>
+function login(){
+  let users = JSON.parse(localStorage.getItem("users")) || [];
+  let u = username.value;
+  let p = password.value;
+
+  // ADMIN LOGIN
+  if(u === "admin" && p === "admin123"){
+    localStorage.setItem("loggedIn","true");
+    localStorage.setItem("currentUser","admin");
+    localStorage.setItem("role","admin");
+    window.location.href="admin.html";
+    return;
+  }
+
+  // NORMAL USER LOGIN
+  let found = users.find(user => user.username === u && user.password === p);
+
+  if(found){
+    localStorage.setItem("loggedIn","true");
+    localStorage.setItem("currentUser",u);
+    localStorage.setItem("role","user");
+    window.location.href="main.html";
+  }else{
+    alert("Invalid username or password");
+  }
+}
+</script>
+
+
+
+</body>
+</html>
