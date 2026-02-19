@@ -9,7 +9,7 @@ app.use(express.json());
 app.use(cors());
 
 // ⭐ This line makes Node show your HTML, CSS, JS files
-app.use(express.static(__dirname));
+app.use(express.static("public"));
 
 // ✅ DEFINE PORT ONLY ONCE
 const PORT = process.env.PORT || 3000;
@@ -52,9 +52,10 @@ app.post("/login", (req, res) => {
 
 // ⭐ This opens your main website page
 app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/main.html");
+  res.sendFile(__dirname + "/public/main.html");
 });
 
 app.listen(PORT, () => {
   console.log("Server running on port " + PORT);
 });
+
