@@ -8,38 +8,36 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-// ⭐ This line makes Node show your HTML, CSS, JS files
-app.use(express.static("public"));
+app.use(express.static("public")); // serve frontend
 
-// ✅ DEFINE PORT ONLY ONCE
 const PORT = process.env.PORT || 3000;
 
-app.post("/register", async (req, res) => {
-  try {
-    const { username, password } = req.body;
-    const hash = await bcrypt.hash(password, 10);
+app.get("/", (req, res) => {
+  res.sendFile(__dirname + "/public/main.html");
+});
 
-    db.query(
-      "INSERT INTO users (username, password) VALUES (?, ?)",
-      [username, hash],
-      err => {
-        if (err) return res.json({ msg: "User exists" });
-        res.json({ msg: "Registered successfully" });
-      }
-    );
-  } catch (err) {
-    res.status(500).json({ msg: "Server error" });
-  }
+app.post("/register", async (req, res) => {
+  const { username, password } = req.body;
+  const hash = await bcrypt.hash(password, 10);
+
+  db.query(
+    "INSERT INTO users (username, password) VALUES (?,?)",
+    [username, hash],
+    err => {
+      if (err) return res.json({ msg: "User exists" });
+      res.json({ msg: "Registered successfully" });
+    }
+  );
 });
 
 app.post("/login", (req, res) => {
   const { username, password } = req.body;
 
   db.query(
-    "SELECT * FROM users WHERE username = ?",
+    "SELECT * FROM users WHERE username=?",
     [username],
     async (err, result) => {
-      if (err || result.length === 0)
+      if (!result || result.length === 0)
         return res.json({ msg: "Invalid credentials" });
 
       const ok = await bcrypt.compare(password, result[0].password);
@@ -50,12 +48,6 @@ app.post("/login", (req, res) => {
   );
 });
 
-// ⭐ This opens your main website page
-app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/public/main.html");
-});
-
 app.listen(PORT, () => {
   console.log("Server running on port " + PORT);
 });
-
