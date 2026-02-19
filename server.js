@@ -8,30 +8,35 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-const PORT = process.env.PORT || 5000;   // ⭐ THIS WAS MISSING
+// ✅ DEFINE PORT ONLY ONCE
+const PORT = process.env.PORT || 3000;
 
 app.post("/register", async (req, res) => {
-  const { username, password } = req.body;
-  const hash = await bcrypt.hash(password, 10);
+  try {
+    const { username, password } = req.body;
+    const hash = await bcrypt.hash(password, 10);
 
-  db.query(
-    "INSERT INTO users (username, password) VALUES (?,?)",
-    [username, hash],
-    err => {
-      if (err) return res.json({ msg: "User exists" });
-      res.json({ msg: "Registered successfully" });
-    }
-  );
+    db.query(
+      "INSERT INTO users (username, password) VALUES (?, ?)",
+      [username, hash],
+      err => {
+        if (err) return res.json({ msg: "User exists" });
+        res.json({ msg: "Registered successfully" });
+      }
+    );
+  } catch (err) {
+    res.status(500).json({ msg: "Server error" });
+  }
 });
 
 app.post("/login", (req, res) => {
   const { username, password } = req.body;
 
   db.query(
-    "SELECT * FROM users WHERE username=?",
+    "SELECT * FROM users WHERE username = ?",
     [username],
     async (err, result) => {
-      if (!result || result.length === 0)
+      if (err || result.length === 0)
         return res.json({ msg: "Invalid credentials" });
 
       const ok = await bcrypt.compare(password, result[0].password);
@@ -46,10 +51,6 @@ app.get("/", (req, res) => {
   res.send("Backend is running successfully 🚀");
 });
 
-const PORT = process.env.PORT || 3000;
-
 app.listen(PORT, () => {
   console.log("Server running on port " + PORT);
 });
-
-
