@@ -8,6 +8,9 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+// ⭐ This line makes Node show your HTML, CSS, JS files
+app.use(express.static(__dirname));
+
 // ✅ DEFINE PORT ONLY ONCE
 const PORT = process.env.PORT || 3000;
 
@@ -47,8 +50,9 @@ app.post("/login", (req, res) => {
   );
 });
 
+// ⭐ This opens your main website page
 app.get("/", (req, res) => {
-  res.send("Backend is running successfully 🚀");
+  res.sendFile(__dirname + "/main.html");
 });
 
 app.listen(PORT, () => {
