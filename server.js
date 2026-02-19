@@ -1,53 +1,41 @@
 const express = require("express");
-const bcrypt = require("bcryptjs");
 const cors = require("cors");
+const mysql = require("mysql2");
 require("dotenv").config();
-const db = require("./db");
 
 const app = express();
-app.use(express.json());
+
+// Middleware
 app.use(cors());
+app.use(express.json());
 
-app.use(express.static("public")); // serve frontend
+// ✅ Serve frontend files from public folder
+app.use(express.static("public"));
 
+// ✅ Database connection (Railway MySQL)
+const db = mysql.createConnection(process.env.DATABASE_URL);
+
+db.connect((err) => {
+    if (err) {
+        console.log("Database connection failed:", err);
+    } else {
+        console.log("Connected to online SQL database ✅");
+    }
+});
+
+// ✅ Test route
+app.get("/api/test", (req, res) => {
+    res.send("Backend API working 🚀");
+});
+
+// ✅ Homepage (optional fallback)
+app.get("/health", (req, res) => {
+    res.send("Server is healthy ✅");
+});
+
+// ✅ Railway requires this PORT setup
 const PORT = process.env.PORT || 3000;
 
-app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/public/main.html");
-});
-
-app.post("/register", async (req, res) => {
-  const { username, password } = req.body;
-  const hash = await bcrypt.hash(password, 10);
-
-  db.query(
-    "INSERT INTO users (username, password) VALUES (?,?)",
-    [username, hash],
-    err => {
-      if (err) return res.json({ msg: "User exists" });
-      res.json({ msg: "Registered successfully" });
-    }
-  );
-});
-
-app.post("/login", (req, res) => {
-  const { username, password } = req.body;
-
-  db.query(
-    "SELECT * FROM users WHERE username=?",
-    [username],
-    async (err, result) => {
-      if (!result || result.length === 0)
-        return res.json({ msg: "Invalid credentials" });
-
-      const ok = await bcrypt.compare(password, result[0].password);
-      if (!ok) return res.json({ msg: "Wrong password" });
-
-      res.json({ msg: "Login success" });
-    }
-  );
-});
-
 app.listen(PORT, () => {
-  console.log("Server running on port " + PORT);
+    console.log("Server running on port " + PORT);
 });
