@@ -3,10 +3,12 @@ const bcrypt = require("bcryptjs");
 const cors = require("cors");
 require("dotenv").config();
 const db = require("./db");
-//deploy trigger
+
 const app = express();
 app.use(express.json());
 app.use(cors());
+
+const PORT = process.env.PORT || 5000;   // ⭐ THIS WAS MISSING
 
 app.post("/register", async (req, res) => {
   const { username, password } = req.body;
@@ -29,7 +31,7 @@ app.post("/login", (req, res) => {
     "SELECT * FROM users WHERE username=?",
     [username],
     async (err, result) => {
-      if (result.length === 0)
+      if (!result || result.length === 0)
         return res.json({ msg: "Invalid credentials" });
 
       const ok = await bcrypt.compare(password, result[0].password);
@@ -39,12 +41,11 @@ app.post("/login", (req, res) => {
     }
   );
 });
-app.get("/",(req,res)=>{
-  res.send("Background is running succesfully");
-});
-app.listen(PORT, () =>{
-  console.log("Server running on port "+PORT);
+
+app.get("/", (req, res) => {
+  res.send("Backend is running successfully 🚀");
 });
 
-
-
+app.listen(PORT, () => {
+  console.log("Server running on port " + PORT);
+});
