@@ -1,41 +1,77 @@
 const express = require("express");
-const cors = require("cors");
 const mysql = require("mysql2");
-require("dotenv").config();
+const bcrypt = require("bcryptjs");
+const cors = require("cors");
 
 const app = express();
-
-// Middleware
-app.use(cors());
 app.use(express.json());
+app.use(cors());
 
-// ✅ Serve frontend files from public folder
-app.use(express.static("public"));
+// ✅ Railway MySQL connection (ONLINE DATABASE)
+const db = mysql.createConnection({
+  host: process.env.MYSQLHOST,
+  user: process.env.MYSQLUSER,
+  password: process.env.MYSQLPASSWORD,
+  database: process.env.MYSQLDATABASE,
+  port: process.env.MYSQLPORT
+});
 
-// ✅ Database connection (Railway MySQL)
-const db = mysql.createConnection(process.env.DATABASE_URL);
+// connect DB
+db.connect(err => {
+  if (err) {
+    console.log("Database connection failed ❌", err);
+  } else {
+    console.log("Database connected ✅");
+  }
+});
 
-db.connect((err) => {
+// ✅ test route
+app.get("/", (req, res) => {
+  res.send("Backend running successfully 🚀");
+});
+
+// ✅ REGISTER
+app.post("/register", async (req, res) => {
+  const { username, password, role } = req.body;
+
+  const hashedPassword = await bcrypt.hash(password, 10);
+
+  const sql = "INSERT INTO users (username, password, role) VALUES (?, ?, ?)";
+  db.query(sql, [username, hashedPassword, role], (err, result) => {
     if (err) {
-        console.log("Database connection failed:", err);
-    } else {
-        console.log("Connected to online SQL database ✅");
+      return res.status(500).send("Registration failed");
     }
+    res.send("User registered successfully");
+  });
 });
 
-// ✅ Test route
-app.get("/api/test", (req, res) => {
-    res.send("Backend API working 🚀");
+// ✅ LOGIN
+app.post("/login", (req, res) => {
+  const { username, password } = req.body;
+
+  const sql = "SELECT * FROM users WHERE username = ?";
+  db.query(sql, [username], async (err, result) => {
+    if (err) return res.status(500).send("Server error");
+
+    if (result.length === 0) {
+      return res.status(401).send("User not found");
+    }
+
+    const validPassword = await bcrypt.compare(password, result[0].password);
+
+    if (!validPassword) {
+      return res.status(401).send("Wrong password");
+    }
+
+    res.json({
+      message: "Login success",
+      role: result[0].role
+    });
+  });
 });
 
-// ✅ Homepage (optional fallback)
-app.get("/health", (req, res) => {
-    res.send("Server is healthy ✅");
-});
-
-// ✅ Railway requires this PORT setup
+// ✅ IMPORTANT FOR RAILWAY PORT
 const PORT = process.env.PORT || 3000;
-
 app.listen(PORT, () => {
-    console.log("Server running on port " + PORT);
+  console.log("Server running on port " + PORT);
 });
