@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Register</title>
+<style>
+body{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+  background:#764ba2;
+  font-family:Arial;
+}
+.box{
+  background:#fff;
+  padding:30px;
+  border-radius:10px;
+  width:300px;
+}
+input,button{
+  width:100%;
+  padding:10px;
+  margin:10px 0;
+}
+button{
+  background:#ff6b35;
+  color:white;
+  border:none;
+  cursor:pointer;
+}
+</style>
+</head>
+<body>
+
+<div class="box">
+  <h2>Register</h2>
+  <input type="text" id="username" placeholder="Username">
+  <input type="password" id="password" placeholder="Password">
+  <button onclick="register()">Register</button>
+  <p>Already registered? <a href="login.html">Login</a></p>
+</div>
+
+<script>
+function register(){
+  let users = JSON.parse(localStorage.getItem("users")) || [];
+  let u = username.value;
+  let p = password.value;
+
+  if(!u || !p){
+    alert("Fill all fields");
+    return;
+  }
+
+  if(users.some(user => user.username === u)){
+    alert("User already exists");
+    return;
+  }
+
+  users.push({username:u,password:p});
+  localStorage.setItem("users",JSON.stringify(users));
+  alert("Registration successful");
+  window.location.href="login.html";
+}
+</script>
+
+</body>
+</html>

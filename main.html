@@ -1,0 +1,1362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indian Temples & Tourist Spots - College Project</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Base Styles */
+        :root {
+            --primary: #4a148c;
+            --secondary: #ff6b35;
+            --accent: #ffd700;
+            --light: #f8f9fa;
+            --dark: #2c3e50;
+            --shadow: 0 5px 15px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', 'Segoe UI', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Navigation Bar */
+        .navbar {
+            background: linear-gradient(135deg, var(--primary) 0%, #311b92 100%);
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
+        }
+        
+        .logo {
+            color: var(--accent);
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo i {
+            font-size: 2rem;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent);
+            background: rgba(255,255,255,0.1);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.7)),
+                        url('https://images.pexels.com/photos/3581364/pexels-photo-3581364.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 20px;
+            position: relative;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            animation: fadeInUp 1s ease;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 3px 3px 10px rgba(0,0,0,0.5);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        .hero-badges {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+        
+        .badge {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 10px 20px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        /* Search Section */
+        .search-section {
+            background: white;
+            padding: 40px 5%;
+            margin-top: -50px;
+            border-radius: 20px 20px 0 0;
+            position: relative;
+            z-index: 1;
+            box-shadow: var(--shadow);
+        }
+        
+        .search-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .search-box {
+            display: flex;
+            background: var(--light);
+            border-radius: 50px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .search-box input {
+            flex: 1;
+            padding: 20px 30px;
+            border: none;
+            background: transparent;
+            font-size: 1rem;
+            outline: none;
+        }
+        
+        .search-box button {
+            padding: 20px 40px;
+            background: linear-gradient(45deg, var(--secondary), #ff8c42);
+            color: white;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .search-box button:hover {
+            background: linear-gradient(45deg, #ff8c42, var(--secondary));
+            transform: scale(1.05);
+        }
+        
+        .search-filters {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            padding: 8px 20px;
+            background: var(--light);
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+        
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--secondary);
+            color: white;
+        }
+        
+        /* Statistics */
+        .stats-section {
+            background: linear-gradient(135deg, var(--primary), #311b92);
+            color: white;
+            padding: 60px 5%;
+        }
+        
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+        
+        /* Places Section */
+        .places-section {
+            padding: 80px 5%;
+            background: var(--light);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--secondary);
+        }
+        
+        .places-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .places-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        /* Place Card - CLEAN IMAGE, TEXT BELOW */
+        .place-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            cursor: pointer;
+            height: 380px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .place-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+        
+        .place-image {
+            width: 100%;
+            height: 200px;
+            position: relative;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        
+        .place-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .place-card:hover .place-image img {
+            transform: scale(1.1);
+        }
+        
+        /* REMOVED TEXT FROM IMAGE AREA ONLY - Keep category tag */
+        .place-category {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--secondary);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 2;
+        }
+        
+        /* TEXT CONTENT AREA - Keep this */
+        .place-info {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+        }
+        
+        .place-info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+        
+        .place-desc {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            line-height: 1.5;
+            flex-grow: 1;
+        }
+        
+        .place-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #888;
+            font-size: 0.85rem;
+            margin-top: 10px;
+        }
+        
+        .place-rating {
+            color: var(--accent);
+            font-weight: 600;
+        }
+        
+        /* Features Section */
+        .features-section {
+            padding: 60px 5%;
+            background: white;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .feature-card {
+            text-align: center;
+            padding: 40px 25px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--secondary);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .feature-card i {
+            font-size: 3.5rem;
+            color: var(--primary);
+            margin-bottom: 25px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        /* Project Info */
+        .project-info {
+            background: linear-gradient(135deg, var(--dark), #1a252f);
+            color: white;
+            padding: 60px 5%;
+            text-align: center;
+        }
+        
+        .project-details {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .project-btn {
+            background: linear-gradient(45deg, var(--secondary), #ff8c42);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-top: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .project-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(255,107,53,0.3);
+        }
+        
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, #1a1a1a, #0a0a0a);
+            color: #ccc;
+            padding: 60px 5% 30px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-section h3 {
+            color: white;
+            margin-bottom: 25px;
+            font-size: 1.3rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--secondary);
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 12px;
+            transition: var(--transition);
+        }
+        
+        .footer-section ul li:hover {
+            transform: translateX(5px);
+        }
+        
+        .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .footer-section a:hover {
+            color: var(--accent);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 40px;
+            margin-top: 40px;
+            border-top: 1px solid #333;
+            font-size: 0.9rem;
+            color: #888;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .places-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                padding: 15px;
+                gap: 15px;
+            }
+            
+            .nav-links {
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .search-box {
+                flex-direction: column;
+                border-radius: 15px;
+            }
+            
+            .search-box input, .search-box button {
+                border-radius: 0;
+                padding: 15px;
+            }
+            
+            .places-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 20px;
+            }
+            
+            .place-card {
+                height: 350px;
+            }
+            
+            .place-image {
+                height: 180px;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .project-details {
+                padding: 30px 20px;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .section-header h2 {
+                font-size: 2rem;
+            }
+            
+            .hero-badges {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .places-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                max-width: 400px;
+            }
+            
+            .place-card {
+                height: 360px;
+            }
+            
+            .place-image {
+                height: 190px;
+            }
+            
+            .search-filters {
+                gap: 10px;
+            }
+            
+            .filter-btn {
+                padding: 6px 15px;
+                font-size: 0.85rem;
+            }
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(var(--primary), var(--secondary));
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(var(--secondary), var(--primary));
+        }
+        
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--secondary);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+            opacity: 0;
+            visibility: hidden;
+            z-index: 100;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            background: var(--primary);
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+<script>
+if(localStorage.getItem("loggedIn")!=="true"){
+  window.location.href="login.html";
+}
+</script>
+
+<body>
+    <!-- Back to Top Button -->
+    <div class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+	<button onclick="logout()" style="
+         background:#ff6b35;
+         color:white;
+         border:none;
+         padding:8px 15px;
+         border-radius:5px;
+         cursor:pointer;">
+         Logout
+    </button>
+	<span style="color:white;">
+Welcome, <b id="userName"></b>
+</span>
+<a href="admin.html" id="adminLink" style="display:none;color:white;">
+Admin
+</a>
+
+
+
+        <div class="logo">
+            <i class="fas fa-landmark"></i>
+            <span>Incredible India</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#home"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="#places"><i class="fas fa-map-marker-alt"></i> Places</a></li>
+            <li><a href="#features"><i class="fas fa-star"></i> Features</a></li>
+            <li><a href="#project"><i class="fas fa-info-circle"></i> Project</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero" id="home">
+        <div class="hero-content">
+            <h1>Discover Sacred India</h1>
+            <p>Explore Ancient Temples & Natural Wonders Across India</p>
+            
+            <div class="hero-badges">
+                <div class="badge floating" style="animation-delay: 0s;">
+                    <i class="fas fa-temple"></i>
+                    <span>Ancient Temples</span>
+                </div>
+                <div class="badge floating" style="animation-delay: 0.2s;">
+                    <i class="fas fa-mountain"></i>
+                    <span>Natural Wonders</span>
+                </div>
+                <div class="badge floating" style="animation-delay: 0.4s;">
+                    <i class="fas fa-history"></i>
+                    <span>Rich Heritage</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Search Section -->
+    <section class="search-section">
+        <div class="search-container">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Search for Tirupati, Borra Caves, Araku Valley...">
+                <button id="searchBtn">
+                    <i class="fas fa-search"></i> Search
+                </button>
+            </div>
+            
+            <div class="search-filters">
+                <button class="filter-btn active" data-filter="all">All Places</button>
+                <button class="filter-btn" data-filter="temple">Temples</button>
+                <button class="filter-btn" data-filter="nature">Nature</button>
+                <button class="filter-btn" data-filter="historical">Historical</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Statistics Section -->
+    <section class="stats-section">
+        <div class="stats-container">
+            <div class="stat-item">
+                <div class="stat-number">12</div>
+                <div class="stat-label">Tourist Places</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">6</div>
+                <div class="stat-label">Sacred Temples</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">5</div>
+                <div class="stat-label">Natural Wonders</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">1</div>
+                <div class="stat-label">UNESCO Site</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Places Section -->
+    <section class="places-section" id="places">
+        <div class="section-header">
+            <h2>Featured Tourist Places</h2>
+            <p>Explore these amazing destinations from across India</p>
+        </div>
+        
+        <div class="places-container">
+            <div class="places-grid" id="placesGrid">
+                <!-- Places will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section" id="features">
+        <div class="section-header">
+            <h2>Explore Indian Tourism</h2>
+            <p>Experience the diversity and beauty of India</p>
+        </div>
+        
+        <div class="features-grid">
+            <div class="feature-card">
+                <i class="fas fa-temple"></i>
+                <h3>Sacred Temples</h3>
+                <p>Visit ancient temples with centuries of history and spirituality</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-mountain"></i>
+                <h3>Natural Beauty</h3>
+                <p>Explore caves, valleys, hills and breathtaking landscapes</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-history"></i>
+                <h3>Historical Sites</h3>
+                <p>Discover ancient caves and historical monuments</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-umbrella-beach"></i>
+                <h3>Hill Stations</h3>
+                <p>Experience cool climate and scenic hill stations</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Info -->
+    <section class="project-info" id="project">
+        <div class="project-details">
+            <h2 style="color: var(--accent); margin-bottom: 20px;">College Project</h2>
+            <div style="margin: 25px 0; text-align: left;">
+                <p style="margin-bottom: 10px;"><strong>Project Title:</strong> Indian Temples & Tourist Spots Portal</p>
+                <p style="margin-bottom: 10px;"><strong>Submitted by:</strong> [S.Teja Sri Sai Kumar] | Roll: [23030-AIM-117]</p>
+                <p style="margin-bottom: 10px;"><strong>Student 2:</strong> [N.Siva Deemanth] | Roll: [23030-AIM-086]</p>
+                <p style="margin-bottom: 10px;"><strong>Student 3:</strong> [L.Hemanth Naga Vamsi] | Roll: [23030-AIM-070]</p>
+                <p style="margin-bottom: 10px;"><strong>Student 4:</strong> [N.Navadeep Sri] | Roll: [23030-AIM-094]</p>
+                <p style="margin-bottom: 10px;"><strong>Semester:</strong> [V-Semester]</p>
+                <p style="margin-bottom: 10px;"><strong>College:</strong> [A.A.N.N.M & V.V.R.S.R POLYTECHNIC]</p>
+            </div>
+            <button class="project-btn" onclick="showProjectDetails()">
+                <i class="fas fa-file-alt"></i> View Project Report
+            </button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#home"><i class="fas fa-chevron-right"></i> Home</a></li>
+                    <li><a href="#places"><i class="fas fa-chevron-right"></i> All Places</a></li>
+                    <li><a href="#features"><i class="fas fa-chevron-right"></i> Features</a></li>
+                    <li><a href="#project"><i class="fas fa-chevron-right"></i> Project Info</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Popular Places</h3>
+                <ul>
+                    <li><a href="#" onclick="filterByPlace('Tirupati')"><i class="fas fa-temple"></i> Tirupati Temple</a></li>
+                    <li><a href="#" onclick="filterByPlace('Borra')"><i class="fas fa-mountain"></i> Borra Caves</a></li>
+                    <li><a href="#" onclick="filterByPlace('Araku')"><i class="fas fa-mountain-sun"></i> Araku Valley</a></li>
+                    <li><a href="#" onclick="filterByPlace('Munnar')"><i class="fas fa-tree"></i> Munnar Hills</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Project Details</h3>
+                <ul>
+                    <li><i class="fas fa-user-graduate"></i> Student: [S.Teja Sri Sai Kumar]</li>
+                    <li><i class="fas fa-book"></i> Course: [Diploma in AIML]</li>
+                    <li><i class="fas fa-calendar"></i> Year: 2024</li>
+                    <li><i class="fas fa-university"></i> College Project</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>© 2024 Indian Temples & Tourist Spots - College Project | Created by Group 4</p>
+            <p style="margin-top: 15px; font-size: 0.8rem; color: #aaa;">
+                This website is created for educational purposes as a college project.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+	function logout(){
+  localStorage.removeItem("loggedIn");
+  localStorage.removeItem("currentUser");
+  window.location.href="login.html";
+}
+
+        // ORIGINAL 12 PLACES DATA
+        const originalPlaces = [
+            {
+                id: 1,
+                name: "Tirupati Temple",
+                image: "https://media.istockphoto.com/id/1268716417/photo/misty-tirupathi.jpg?b=1&s=612x612&w=0&k=20&c=le-lFi5b-St4XSSF62m-Byua3AxS_So7Ngth1IEuQvI=",
+                description: "Built 300 AD by Thondaman king. World's richest temple dedicated to Venkateswara.",
+                category: "temple",
+                location: "Andhra Pradesh",
+                rating: 4.8,
+                history: "One of the most visited religious places in the world"
+            },
+            {
+                id: 2,
+                name: "Kashi Vishwanath",
+                image: "https://media.istockphoto.com/id/827065008/photo/holy-town-varanasi-and-the-river-ganges.jpg?b=1&s=612x612&w=0&k=20&c=8_UyWUK5V2Y5ODwwbVqjzeeuuSv0TV-Rpf1KF_O4mr8=",
+                description: "Jyotirlinga rebuilt 1780 by Ahilyabai Holkar after invasions.",
+                category: "temple",
+                location: "Uttar Pradesh",
+                rating: 4.9,
+                history: "One of the twelve Jyotirlingas of Shiva"
+            },
+            {
+                id: 3,
+                name: "Puri Jagannath Temple",
+                image: "https://images.pexels.com/photos/33568311/pexels-photo-33568311.jpeg",
+                description: "11th-century Eastern Ganga rebuild and Rath Yatra origin.",
+                category: "temple",
+                location: "Odisha",
+                rating: 4.7,
+                history: "Famous for annual Rath Yatra festival"
+            },
+            {
+                id: 4,
+                name: "Kanchi Temples",
+                image: "https://sannidhi.net/wp-content/uploads/2023/05/Sri-Kanchi-Kamakshi-Amman-Temple00.png",
+                description: "7th century Pallava king Rajasimha. City of thousand temples.",
+                category: "temple",
+                location: "Tamil Nadu",
+                rating: 4.6,
+                history: "Ancient temple city of South India"
+            },
+            {
+                id: 5,
+                name: "Arunachalam Temple",
+                image: "https://static.wixstatic.com/media/d37a82_6b8f10a72ae346b3970f0f5caa049179~mv2.jpg/v1/fill/w_791,h_1000,al_c,q_85,usm_0.66_1.00_0.01/d37a82_6b8f10a72ae346b3970f0f5caa049179~mv2.jpg",
+                description: "9th-century Chola construction. Largest Shiva temple, representing fire.",
+                category: "temple",
+                location: "Tamil Nadu",
+                rating: 4.5,
+                history: "One of the Pancha Bhoota Stalam temples"
+            },
+            {
+                id: 6,
+                name: "Borra Caves",
+                image: "https://cdn.guidetour.in/wp-content/uploads/2023/04/Borra-Caves.jpg.webp",
+                description: "150-million-year-old limestone caves discovered by William King.",
+                category: "nature",
+                location: "Andhra Pradesh",
+                rating: 4.4,
+                history: "Natural limestone caves with stunning formations"
+            },
+            {
+                id: 7,
+                name: "Araku Valley",
+                image: "https://www.cavelee.com/cmoon_images/13808_img_20240812_000239_1024x768.jpg",
+                description: "Coffee plantations and tribal culture in Eastern Ghats.",
+                category: "nature",
+                location: "Andhra Pradesh",
+                rating: 4.6,
+                history: "Famous for coffee plantations and scenic beauty"
+            },
+            {
+                id: 8,
+                name: "Lambasingi",
+                image: "https://static2.tripoto.com/media/filter/tst/img/1510297/TripDocument/1555408067_1555408063186.jpg",
+                description: "Known as Kashmir of Andhra Pradesh due to snowfall and scenic hills.",
+                category: "nature",
+                location: "Andhra Pradesh",
+                rating: 4.3,
+                history: "Only place in South India that experiences snowfall"
+            },
+            {
+                id: 9,
+                name: "Ajanta Caves",
+                image: "https://www.gokitetours.com/wp-content/uploads/2024/11/Top-7-Unique-Facts-About-the-Ajanta-and-Ellora-Caves-1200x675.webp",
+                description: "Ancient Buddhist rock-cut caves with fresco paintings.",
+                category: "historical",
+                location: "Maharashtra",
+                rating: 4.7,
+                history: "UNESCO World Heritage Site dating back to 2nd century BCE"
+            },
+            {
+                id: 10,
+                name: "Papi Kondalu",
+                image: "https://ocean6holidays.com/wp-content/uploads/2025/02/papikondalo-tour.jpg",
+                description: "Beautiful hills along Godavari river with boat rides & tribals.",
+                category: "nature",
+                location: "Andhra Pradesh",
+                rating: 4.5,
+                history: "Scenic hills along the Godavari river"
+            },
+            {
+                id: 11,
+                name: "Konark Sun Temple",
+                image: "https://i.pinimg.com/1200x/65/a0/4a/65a04ac39fe54013561c9dc75602f5de.jpg",
+                description: "13th-century UNESCO site in Odisha, designed as a massive stone chariot for the Sun God.",
+                category: "temple",
+                location: "Odisha",
+                rating: 4.8,
+                history: "UNESCO World Heritage Site, masterpiece of Odisha architecture"
+            },
+            {
+                id: 12,
+                name: "Munnar Hill Station",
+                image: "https://images.pexels.com/photos/14730457/pexels-photo-14730457.jpeg",
+                description: "Kerala hill station famous for tea plantations, misty hills, waterfalls, and cool climate.",
+                category: "nature",
+                location: "Kerala",
+                rating: 4.7,
+                history: "Popular hill station known for tea gardens"
+            }
+        ];
+
+        // Function to open place pages from main page
+        function viewPlaceDetails(id) {
+            const placeFiles = {
+                1: "tirupati.html",
+                2: "kashi.html",
+                3: "puri.html",
+                4: "kanchi.html",
+                5: "arunachalam.html",
+                6: "borracaves.html",
+                7: "araku.html",
+                8: "lambasingi.html",
+                9: "ajantacaves.html",
+                10: "papikondalu.html",
+                11: "konark.html",
+                12: "munnar.html"
+            };
+            
+            const fileName = placeFiles[id];
+            
+            if (fileName) {
+                // Open the corresponding HTML file
+                window.location.href = fileName;
+            } else {
+                alert("Page is being developed. Coming soon!");
+            }
+        }
+
+        // DOM Elements
+        const placesGrid = document.getElementById('placesGrid');
+        const searchInput = document.getElementById('searchInput');
+        const searchBtn = document.getElementById('searchBtn');
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const backToTop = document.getElementById('backToTop');
+
+        // Current filter state
+        let currentFilter = 'all';
+        let currentSearch = '';
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Display all original places
+            displayPlaces(originalPlaces);
+            
+            // Setup event listeners
+            setupEventListeners();
+            
+            // Show welcome message
+            setTimeout(() => {
+                showNotification('Welcome! Explore 12 amazing tourist places across India');
+            }, 1000);
+        });
+
+        // Function to display places
+        function displayPlaces(places) {
+            placesGrid.innerHTML = '';
+            
+            if (places.length === 0) {
+                placesGrid.innerHTML = `
+                    <div style="grid-column: 1/-1; text-align: center; padding: 50px; background: white; border-radius: 15px; box-shadow: var(--shadow);">
+                        <i class="fas fa-search" style="font-size: 4rem; color: var(--primary); margin-bottom: 20px; opacity: 0.5;"></i>
+                        <h3 style="color: var(--dark); margin-bottom: 15px; font-size: 1.5rem;">No places found</h3>
+                        <p style="color: #666; max-width: 400px; margin: 0 auto;">Try searching with different keywords</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            places.forEach(place => {
+                const card = createPlaceCard(place);
+                placesGrid.appendChild(card);
+            });
+        }
+
+        // Function to create place card - CLEAN IMAGE ONLY
+        function createPlaceCard(place) {
+            const card = document.createElement('div');
+            card.className = 'place-card';
+            card.setAttribute('data-category', place.category);
+            card.onclick = function() {
+                viewPlaceDetails(place.id);
+            };
+            
+            // Get icon based on category
+            let icon = 'fas fa-map-marker-alt';
+            if (place.category === 'temple') icon = 'fas fa-temple';
+            if (place.category === 'nature') icon = 'fas fa-mountain';
+            if (place.category === 'historical') icon = 'fas fa-landmark';
+            
+            card.innerHTML = `
+                <div class="place-image">
+                    <img src="${place.image}" alt="${place.name}" loading="lazy">
+                    <div class="place-category">
+                        <i class="${icon}"></i> ${place.category === 'temple' ? 'Temple' : place.category === 'nature' ? 'Nature' : 'Historical'}
+                    </div>
+                </div>
+                <div class="place-info">
+                    <h3>${place.name}</h3>
+                    <p class="place-desc">${place.description}</p>
+                    
+                    <div class="place-meta">
+                        <span><i class="fas fa-location-dot"></i> ${place.location}</span>
+                        <span class="place-rating">
+                            <i class="fas fa-star"></i> ${place.rating}/5
+                        </span>
+                    </div>
+                </div>
+            `;
+            
+            return card;
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Search functionality
+            searchBtn.addEventListener('click', performSearch);
+            searchInput.addEventListener('keyup', function(event) {
+                if (event.key === 'Enter') {
+                    performSearch();
+                }
+            });
+            
+            // Filter buttons
+            filterBtns.forEach(button => {
+                button.addEventListener('click', function() {
+                    filterBtns.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    currentFilter = this.getAttribute('data-filter');
+                    performSearch();
+                });
+            });
+            
+            // Back to top button
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 300) {
+                    backToTop.classList.add('show');
+                } else {
+                    backToTop.classList.remove('show');
+                }
+            });
+            
+            if (backToTop) {
+                backToTop.addEventListener('click', function() {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            }
+            
+            // Smooth scrolling
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        }
+
+        // Perform search
+        function performSearch() {
+            const searchValue = searchInput.value.toLowerCase().trim();
+            currentSearch = searchValue;
+            
+            let filteredPlaces = originalPlaces;
+            
+            // Apply search filter
+            if (searchValue) {
+                filteredPlaces = filteredPlaces.filter(place => {
+                    return (
+                        place.name.toLowerCase().includes(searchValue) ||
+                        place.description.toLowerCase().includes(searchValue) ||
+                        place.location.toLowerCase().includes(searchValue)
+                    );
+                });
+            }
+            
+            // Apply category filter
+            if (currentFilter !== 'all') {
+                filteredPlaces = filteredPlaces.filter(place => 
+                    place.category === currentFilter
+                );
+            }
+            
+            // Display filtered places
+            displayPlaces(filteredPlaces);
+        }
+
+        // Filter by place from footer
+        function filterByPlace(placeName) {
+            searchInput.value = placeName;
+            performSearch();
+        }
+
+        // Show project details
+        function showProjectDetails() {
+            const projectInfo = `
+INDIAN TEMPLES & TOURIST SPOTS PORTAL
+College Project Submission
+
+PROJECT DETAILS:
+• Title: Indian Temples & Tourist Spots Portal
+• Student 1: [S.Teja Sri Sai Kumar]
+• Roll No: [23030-AIM-117]
+• Student 2: [N.Siva Deemanth]
+• Roll No: [23030-AIM-086]
+• Student 3: [L.Hemanth Naga Vamsi]
+• Roll No: [23030-AIM-070]
+• Student 4: [N.Navadeep Sri]
+• Roll No: [23030-AIM-094]
+• Semester: [V-Semester]
+• College: [A.A.N.M.&.V.V.R.S.R POLYTECHNIC]
+
+PROJECT DESCRIPTION:
+This interactive website showcases 12 original tourist destinations across India
+with advanced features including search, filtering, and detailed information.
+
+PLACES INCLUDED (12 Original):
+1. Tirupati Temple (Andhra Pradesh)
+2. Kashi Vishwanath (Uttar Pradesh)
+3. Puri Jagannath Temple (Odisha)
+4. Kanchi Temples (Tamil Nadu)
+5. Arunachalam Temple (Tamil Nadu)
+6. Borra Caves (Andhra Pradesh)
+7. Araku Valley (Andhra Pradesh)
+8. Lambasingi (Andhra Pradesh)
+9. Ajanta Caves (Maharashtra)
+10. Papi Kondalu (Andhra Pradesh)
+11. Konark Sun Temple (Odisha)
+12. Munnar Hill Station (Kerala)
+
+FEATURES IMPLEMENTED:
+✓ Responsive Design (Mobile & Desktop)
+✓ Search Functionality
+✓ Category Filtering
+✓ Detailed Place Information
+✓ Smooth Animations
+✓ Project Information
+✓ Attractive UI/UX Design
+
+TECHNOLOGY USED:
+• HTML5, CSS3, JavaScript
+• Font Awesome Icons
+• Google Fonts
+• Modern CSS Grid & Flexbox
+
+DATE: ${new Date().toLocaleDateString()}
+            `;
+            
+            alert(projectInfo);
+        }
+
+        // Show notification
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 30px;
+                background: linear-gradient(45deg, var(--primary), var(--secondary));
+                color: white;
+                padding: 15px 25px;
+                border-radius: 10px;
+                box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+                z-index: 1001;
+                animation: slideIn 0.5s ease, fadeOut 0.5s ease 2.5s;
+                max-width: 300px;
+                font-weight: 500;
+            `;
+            
+            notification.innerHTML = `
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <i class="fas fa-info-circle" style="font-size: 1.2rem;"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        // Add CSS for notification animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes fadeOut {
+                from { opacity: 1; }
+                to { opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+	<script>
+document.addEventListener("DOMContentLoaded", function () {
+  document.getElementById("userName").innerText =
+    localStorage.getItem("currentUser");
+});
+</script>
+<script>
+if(localStorage.getItem("role")==="admin"){
+  document.getElementById("adminLink").style.display="inline";
+}
+</script>
+
+
+</body>
+</html>
