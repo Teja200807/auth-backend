@@ -1,0 +1,725 @@
+[file name]: munnar.html
+[file content begin]
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Munnar Hill Station - Complete Guide</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0d3b2e 0%, #1a5c48 100%);
+            color: #333;
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+        
+        .parallax-hero {
+            height: 100vh;
+            background: 
+                linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)),
+                url('https://images.pexels.com/photos/3225531/pexels-photo-3225531.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .parallax-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent 70%, #0d3b2e 100%);
+        }
+        
+        .hero-nav {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            z-index: 10;
+        }
+        
+        .back-btn {
+            color: white;
+            text-decoration: none;
+            background: rgba(76, 175, 80, 0.3);
+            padding: 12px 25px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(76, 175, 80, 0.5);
+            transition: all 0.3s ease;
+        }
+        
+        .back-btn:hover {
+            background: rgba(76, 175, 80, 0.5);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: 0 20px;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .hero-content h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            text-shadow: 3px 3px 10px rgba(0,0,0,0.5);
+            color: #4caf50;
+        }
+        
+        .hero-content .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+        
+        .hero-stats {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .stat-item {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 15px 25px;
+            border-radius: 15px;
+            border: 1px solid rgba(255,255,255,0.2);
+            min-width: 150px;
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #4caf50;
+            margin-bottom: 5px;
+        }
+        
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translate(-50%, 0); }
+            40% { transform: translate(-50%, -10px); }
+            60% { transform: translate(-50%, -5px); }
+        }
+        
+        /* Content Sections */
+        .content-wrapper {
+            background: #f8f9fa;
+            border-radius: 40px 40px 0 0;
+            margin-top: -40px;
+            position: relative;
+            z-index: 2;
+            padding: 80px 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        section {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+        
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #4caf50;
+        }
+        
+        .section-header i {
+            font-size: 2rem;
+            color: #4caf50;
+        }
+        
+        .section-header h2 {
+            color: #2c3e50;
+            font-size: 2.2rem;
+            margin: 0;
+        }
+        
+        .history-content p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            color: #555;
+        }
+        
+        .highlight-box {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 25px 0;
+            border-left: 5px solid #4caf50;
+        }
+        
+        /* Attractions Cards */
+        .places-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .place-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .place-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+            border-color: #4caf50;
+        }
+        
+        .place-card h4 {
+            background: linear-gradient(135deg, #1b5e20 0%, #2e7d32 100%);
+            color: white;
+            padding: 20px;
+            margin: 0;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .place-card p {
+            padding: 20px;
+            margin: 0;
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        
+        /* Accommodation Table */
+        .hotels-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .hotels-table th {
+            background: linear-gradient(135deg, #1b5e20 0%, #388e3c 100%);
+            color: white;
+            padding: 20px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        .hotels-table td {
+            padding: 15px 20px;
+            border-bottom: 1px solid #eee;
+            color: #555;
+        }
+        
+        .hotels-table tr:hover {
+            background: #f8f9fa;
+        }
+        
+        .hotels-table .price {
+            color: #27ae60;
+            font-weight: 600;
+        }
+        
+        /* Routes */
+        .routes-container {
+            display: grid;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .route-card {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            padding: 25px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .route-card:hover {
+            transform: translateX(10px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .route-icon {
+            background: #2c3e50;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+        
+        .route-content h4 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+        
+        .route-content p {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .parallax-hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-content .subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .hero-stats {
+                gap: 15px;
+            }
+            
+            .stat-item {
+                min-width: 120px;
+                padding: 10px 15px;
+            }
+            
+            .stat-number {
+                font-size: 1.5rem;
+            }
+            
+            .places-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hotels-table {
+                font-size: 0.9rem;
+            }
+            
+            .hotels-table th,
+            .hotels-table td {
+                padding: 10px;
+            }
+            
+            section {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section with Parallax -->
+    <section class="parallax-hero">
+        <nav class="hero-nav">
+            <a href="main.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Back to Home
+            </a>
+        </nav>
+        
+        <div class="hero-content">
+            <h1>Munnar Hill Station</h1>
+            <div class="subtitle">Kerala's Green Paradise • Tea Gardens & Misty Mountains</div>
+            
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <div class="stat-number">1,600m</div>
+                    <div>Above Sea Level</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">+12°C</div>
+                    <div>Average Temperature</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">1870</div>
+                    <div>British Discovery</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">2M+</div>
+                    <div>Tourists/Year</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="scroll-indicator">
+            <i class="fas fa-chevron-down"></i> Explore Munnar
+        </div>
+    </section>
+    
+    <!-- Main Content -->
+    <div class="content-wrapper">
+        <div class="container">
+            <!-- About Section -->
+            <section class="history-section" id="about">
+                <div class="section-header">
+                    <i class="fas fa-mountain"></i>
+                    <h2>Queen of Hill Stations</h2>
+                </div>
+                
+                <div class="history-content">
+                    <p>Munnar, meaning "three rivers" in Malayalam, is a picturesque hill station nestled in the Western Ghats of Kerala. Once the summer resort of the British administration, Munnar today is famous for its sprawling tea plantations, misty valleys, and cool climate.</p>
+                    
+                    <div class="highlight-box">
+                        <h3>🌿 Tea Capital of South India</h3>
+                        <p>Munnar's economy revolves around tea plantations established by British planters in the late 19th century. The region produces some of the world's finest Orthodox tea, with the Tata Tea Museum preserving this rich heritage.</p>
+                    </div>
+                    
+                    <p>The region's biodiversity is exceptional, with Eravikulam National Park serving as the last refuge of the endangered Nilgiri Tahr. Munnar's unique ecosystem includes Shola forests and grasslands that support diverse flora and fauna.</p>
+                    
+                    <p>Popular as both a honeymoon destination and family getaway, Munnar offers activities ranging from plantation tours and trekking to wildlife spotting and spice garden visits. The Neelakurinji flower that blooms once every 12 years paints the hills blue, attracting nature enthusiasts worldwide.</p>
+                    
+                    <div class="highlight-box">
+                        <h3>🌄 British Colonial Legacy</h3>
+                        <p>Munnar's development began in 1877 when the British discovered its potential for tea cultivation. Many colonial-era bungalows and churches still stand, adding to the region's old-world charm.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Attractions Section -->
+            <section class="sightseeing-section" id="attractions">
+                <div class="section-header">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <h2>Top 10 Natural Attractions</h2>
+                </div>
+                
+                <div class="places-grid">
+                    <div class="place-card">
+                        <h4><i class="fas fa-leaf"></i> Tea Gardens</h4>
+                        <p>Endless rolling hills covered in lush green tea plantations.</p>
+                    </div>
+                    
+                    <div class="place-card">
+                        <h4><i class="fas fa-paw"></i> Eravikulam National Park</h4>
+                        <p>UNESCO site home to endangered Nilgiri Tahr mountain goats.</p>
+                    </div>
+                    
+                    <div class="place-card">
+                        <h4><i class="fas fa-water"></i> Mattupetty Dam</h4>
+                        <p>Scenic reservoir offering boating and stunning mountain views.</p>
+                    </div>
+                    
+                    <div class="place-card">
+                        <h4><i class="fas fa-mountain"></i> Anamudi Peak</h4>
+                        <p>South India's highest peak at 2,695 meters.</p>
+                    </div>
+                    
+                    <div class="place-card">
+                        <h4><i class="fas fa-tree"></i> Top Station</h4>
+                        <p>Viewpoint offering panoramic views of Western Ghats valleys.</p>
+                    </div>
+                    
+                    <div class="place-card">
+                        <h4><i class="fas fa-umbrella-beach"></i> Echo Point</h4>
+                        <p>Popular spot where voices echo across the Kundala Lake.</p>
+                    </div>
+                    
+                    <div class="place-card">
+                        <h4><i class="fas fa-seedling"></i> Tata Tea Museum</h4>
+                        <p>Learn about tea processing and colonial plantation history.</p>
+                    </div>
+                    
+                    <div class="place-card">
+                        <h4><i class="fas fa-waterfall"></i> Attukal Waterfalls</h4>
+                        <p>Picturesque cascading waterfalls surrounded by forests.</p>
+                    </div>
+                    
+                    <div class="place-card">
+                        <h4><i class="fas fa-church"></i> Christ Church</h4>
+                        <p>Historic 1910 Anglican church with beautiful stained glass.</p>
+                    </div>
+                    
+                    <div class="place-card">
+                        <h4><i class="fas fa-spa"></i> Blossom Hydel Park</h4>
+                        <p>Serene park with exotic flowers, boating, and picnic spots.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Accommodation Section -->
+            <section class="hotels-section" id="accommodation">
+                <div class="section-header">
+                    <i class="fas fa-hotel"></i>
+                    <h2>Top 10 Hotels & Dining</h2>
+                </div>
+                
+                <table class="hotels-table">
+                    <tr>
+                        <th>Hotel/Restaurant</th>
+                        <th>Location</th>
+                        <th>Price</th>
+                        <th>Specialty</th>
+                    </tr>
+                    <tr>
+                        <td>Windermere Estate</td>
+                        <td>Pothamedu</td>
+                        <td class="price">₹8000+</td>
+                        <td>Luxury Plantation Stay</td>
+                    </tr>
+                    <tr>
+                        <td>Fragrant Nature Munnar</td>
+                        <td>Chithirapuram</td>
+                        <td class="price">₹5000+</td>
+                        <td>Mountain View Resort</td>
+                    </tr>
+                    <tr>
+                        <td>Tea County</td>
+                        <td>Munnar Town</td>
+                        <td class="price">₹4000-7000</td>
+                        <td>Tata Group Property</td>
+                    </tr>
+                    <tr>
+                        <td>Blackberry Hills</td>
+                        <td>Pallivasal</td>
+                        <td class="price">₹3500-5500</td>
+                        <td>Scenic Valley Views</td>
+                    </tr>
+                    <tr>
+                        <td>Grand Plaza Munnar</td>
+                        <td>Munnar Center</td>
+                        <td class="price">₹2000-4000</td>
+                        <td>Budget Luxury</td>
+                    </tr>
+                    <tr>
+                        <td>Saravana Bhavan</td>
+                        <td>Munnar Town</td>
+                        <td class="price">₹200-500</td>
+                        <td>Vegetarian Meals</td>
+                    </tr>
+                    <tr>
+                        <td>Rapsy Restaurant</td>
+                        <td>Main Market</td>
+                        <td class="price">₹300-700</td>
+                        <td>Arabian & Indian</td>
+                    </tr>
+                    <tr>
+                        <td>Copper Castle</td>
+                        <td>Bison Valley Road</td>
+                        <td class="price">₹400-800</td>
+                        <td>Multi-Cuisine</td>
+                    </tr>
+                    <tr>
+                        <td>Tea Town Restaurant</td>
+                        <td>Near Bus Stand</td>
+                        <td class="price">₹150-400</td>
+                        <td>Local Kerala Food</td>
+                    </tr>
+                    <tr>
+                        <td>Munnar Cafe</td>
+                        <td>KTDC Complex</td>
+                        <td class="price">₹100-300</td>
+                        <td>Tea & Snacks</td>
+                    </tr>
+                </table>
+            </section>
+            
+            <!-- Routes Section -->
+            <section class="routes-section" id="routes">
+                <div class="section-header">
+                    <i class="fas fa-route"></i>
+                    <h2>Optimal Sightseeing Routes</h2>
+                </div>
+                
+                <div class="routes-container">
+                    <div class="route-card">
+                        <div class="route-icon">
+                            <i class="fas fa-1"></i>
+                        </div>
+                        <div class="route-content">
+                            <h4>Day 1: Tea Trail (25km)</h4>
+                            <p>Tea Museum → Tea Gardens → Tata Tea Factory → Colonial Bungalows → Sunset at Top Station</p>
+                        </div>
+                    </div>
+                    
+                    <div class="route-card">
+                        <div class="route-icon">
+                            <i class="fas fa-2"></i>
+                        </div>
+                        <div class="route-content">
+                            <h4>Day 2: Nature & Wildlife (35km)</h4>
+                            <p>Eravikulam NP → Mattupetty Dam → Echo Point → Kundala Lake → Attukal Waterfalls</p>
+                        </div>
+                    </div>
+                    
+                    <div class="route-card">
+                        <div class="route-icon">
+                            <i class="fas fa-3"></i>
+                        </div>
+                        <div class="route-content">
+                            <h4>Day 3: Adventure & Culture (40km)</h4>
+                            <p>Anamudi Base Trek → Spice Plantations → Local Markets → Christ Church → Cultural Show</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        // Scroll animation for sections
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll('section');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+            
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Add floating navigation
+            const nav = document.createElement('nav');
+            nav.className = 'floating-nav';
+            nav.innerHTML = `
+                <a href="#about"><i class="fas fa-mountain"></i> <span>About</span></a>
+                <a href="#attractions"><i class="fas fa-map-marked-alt"></i> <span>Attractions</span></a>
+                <a href="#accommodation"><i class="fas fa-hotel"></i> <span>Hotels</span></a>
+                <a href="#routes"><i class="fas fa-route"></i> <span>Routes</span></a>
+            `;
+            document.body.appendChild(nav);
+            
+            // Style floating navigation
+            const style = document.createElement('style');
+            style.textContent = `
+                .floating-nav {
+                    position: fixed;
+                    bottom: 30px;
+                    right: 30px;
+                    background: white;
+                    border-radius: 50px;
+                    padding: 15px 25px;
+                    display: flex;
+                    gap: 20px;
+                    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+                    z-index: 1000;
+                }
+                .floating-nav a {
+                    color: #2c3e50;
+                    text-decoration: none;
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                    font-weight: 500;
+                    padding: 8px 15px;
+                    border-radius: 25px;
+                    transition: all 0.3s ease;
+                }
+                .floating-nav a:hover {
+                    background: #4caf50;
+                    color: white;
+                }
+                @media (max-width: 768px) {
+                    .floating-nav {
+                        bottom: 20px;
+                        right: 20px;
+                        padding: 10px 15px;
+                        gap: 10px;
+                    }
+                    .floating-nav a span {
+                        display: none;
+                    }
+                    .floating-nav a i {
+                        font-size: 1.2rem;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+        });
+    </script>
+</body>
+</html>
+[file content end]
